@@ -4,83 +4,90 @@
 class Animal
 {
 protected:
-{
+
 	std::string n;
-}
+
 public:
 	Animal() {}
 	Animal(std::string _n) : n(_n)
 	{}
-	int GetN()
-	{
-		return n;
-	}
-	 virtual void Show()
+	
+
+	 virtual void Voice()
 	{
 		std::cout << "What animals do you like?" << "\n";
 	}
+	 virtual void Voice()
+	 {
+		 std::cout << "Animal makes sounds." << "\n";
+	 }
 
 };
 
 class Dog : public Animal
 {
-private:
-	std::string x;
 public:
 	Dog() {}
-	Dog(std::string _x, std::string _n) : x(_x), Animal(_n)
+	Dog( std::string _n) :  Animal(_n)
 	{}
-	std::string GetNX()
+	
+	void Voice() override
 	{
-		return n + x;
-	}
-	void Show() override
-	{
-		std::cout << "Dogs is good" << "\n";
+		std::cout << "Woof!" << "\n";
 	}
 };
 
 class Cat : public Animal
 {
-private:
-	std::string y;
 public:
 	Cat() {}
-	Cat(std::string _y, std::string _n) : y(_y), Animal(_n)
+	Cat(std::string _n) : Animal(_n)
 	{}
-	std::string GetNY()
-	{
-		return n + y;
-	}
 
-	void Show() override
+	void Voice() override
 	{
-		std::cout << "Cats is cunning" << " \n";
+		std::cout << "Meow!" << " \n";
 	}
 };
 
-class Rat : public Animal
+class Owl : public Animal
 {
-private:
-	std::string i;
 public:
-	Rat() {}
-	Rat(std::string _i, std::string _n) : i(_i), Animal(_n)
+	Owl() {}
+	Owl(std::string _n) : Animal(_n)
 	{}
-	std::string GetNI()
+	
+	void Voice() override
 	{
-		return n + i;
-	}
-	void Show() override
-	{
-		std::cout << "Rats is not scary" << " \n";
+		std::cout << "Hoot!" << " \n";
 	}
 };
 
 
 int main()
 {
-	Animal* r = new Rat();
-	r->Show();
+	int x = 0; 
+	std::cout <<"Animals voice" << std::endl;
+	std::cin >> x;
+	Animal* Animals = new Animal[x];
+
+	for (int i = 0; i < x; ++i) //заполняем массив
+	{
+		std::string LocalAnimals;
+
+		std::cout << "Enter animals: " << std::endl;
+		std::cin >> LocalAnimals;
+
+		Animals[i] = *new  Animal(LocalAnimals);
+	}
+
+	for (int i = 0; i < x; ++i) // Вывод массива 
+	{
+		Animals[i].Voice();
+	}
+
+	delete[]  Animals;
+
+	return 0;
 
 }
