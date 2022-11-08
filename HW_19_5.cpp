@@ -3,23 +3,19 @@
 
 class Animal
 {
-protected:
-
-	std::string n;
-
 public:
-	Animal() {}
-	Animal(std::string _n) : n(_n)
-	{}
+	Animal()
+	{
+		std::cout << "Animal create" << "\n";
+	}
 	
-
 	 virtual void Voice()
 	{
-		std::cout << "What animals do you like?" << "\n";
+		std::cout << "Animal makes sounds." << "\n";
 	}
-	 virtual void Voice()
+	 virtual ~Animal()
 	 {
-		 std::cout << "Animal makes sounds." << "\n";
+		 std::cout << "Animal destroy" << "\n";
 	 }
 
 };
@@ -27,66 +23,74 @@ public:
 class Dog : public Animal
 {
 public:
-	Dog() {}
-	Dog( std::string _n) :  Animal(_n)
-	{}
+	Dog()
+	{
+		std::cout << "Dog create" << "\n";
+	}
 	
 	void Voice() override
 	{
 		std::cout << "Woof!" << "\n";
 	}
+	virtual ~Dog()
+	{
+		std::cout << "Dog destroy" << "\n";
+	}
+
 };
 
 class Cat : public Animal
 {
 public:
-	Cat() {}
-	Cat(std::string _n) : Animal(_n)
-	{}
-
+	Cat()
+	{
+		std::cout << "Cat create" << "\n";
+	}
+	
 	void Voice() override
 	{
 		std::cout << "Meow!" << " \n";
 	}
+
+	virtual ~Cat()
+	{
+		std::cout << "Cat destroy" << "\n";
+	}
+
 };
 
 class Owl : public Animal
 {
 public:
-	Owl() {}
-	Owl(std::string _n) : Animal(_n)
-	{}
+	Owl()
+	{
+		std::cout << "Owl create" << "\n";
+	}
 	
 	void Voice() override
 	{
 		std::cout << "Hoot!" << " \n";
 	}
-};
 
+	virtual ~Owl()
+	{
+		std::cout << "Owl destroy" << "\n";
+	}
+
+};
 
 int main()
 {
-	int x = 0; 
-	std::cout <<"Animals voice" << std::endl;
-	std::cin >> x;
-	Animal* Animals = new Animal[x];
+	const int x = 3; 
+	Animal* Animals[x]{ new Dog, new Cat, new Owl };
 
-	for (int i = 0; i < x; ++i) //заполняем массив
-	{
-		std::string LocalAnimals;
-
-		std::cout << "Enter animals: " << std::endl;
-		std::cin >> LocalAnimals;
-
-		Animals[i] = *new  Animal(LocalAnimals);
-	}
+	
 
 	for (int i = 0; i < x; ++i) // Вывод массива 
 	{
-		Animals[i].Voice();
+		Animals[i]->Voice();
+		delete Animals[i];
 	}
-
-	delete[]  Animals;
 
 	return 0;
 
